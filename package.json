@@ -1,6 +1,6 @@
 {
   "name": "react-component-library",
-  "private": true,
+  "private": false,
   "version": "0.1.0",
   "description": "A nice environment for building and previewing components.",
   "main": "npm/src/index.js",
