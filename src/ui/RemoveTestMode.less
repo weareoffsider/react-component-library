@@ -1,0 +1,41 @@
+@import "./palette";
+
+
+.ComponentServer__RemoveTestMode {
+  position: absolute;
+  display: block;
+  background-color: fade(#000, 37%);
+  padding: 8px 3px;
+  border-radius: 0 3px 3px 0;
+  top: 4px;
+  left: 0;
+  z-index: 99999;
+  color: #fff;
+
+  &Icon {
+    display: block;
+
+    path {
+      fill: currentColor;
+    }
+  }
+
+  &Label {
+    position: absolute;
+    top: 4px;
+    left: 35px;
+    color: #fff;
+    background: #000;
+    border-radius: 3px;
+    white-space: nowrap;
+    font-size: 11px;
+    padding: 3px 5px;
+    display: none;
+  }
+
+  // Hover
+
+  &:hover &Label {
+    display: block;
+  }
+}

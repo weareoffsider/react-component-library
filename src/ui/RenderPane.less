@@ -1,0 +1,65 @@
+@import "./Nav";
+
+
+.ComponentServerRenderPane {
+  margin-left: @Nav-width;
+
+  &__header {}
+
+  &__title {
+    ._typography-default();
+    font-size: 16px;
+    margin: 0;
+    padding: 16px 15px 15px 15px;
+  }
+}
+
+.RenderComponent {
+  border-top: 1px solid #eee;
+
+  &__header {
+    ._typography-default();
+    color: inherit;
+    font-size: 16px;
+    margin: 0;
+    padding: 40px 15px 15px 15px;
+    border-bottom: 1px solid #eee;
+  }
+
+  &__wrapper {
+    transform: translate3d(0,0,0);
+  }
+
+  &__jsonWrapper {
+    // Create a strip on the RHS so that you can scroll past the json (it's a bit annoying when there's a lot of json to scroll past)
+    padding-right: 30px;
+    background-color: #FcFcFc;
+    border-top: 1px solid #eee;
+  }
+
+  &__json {
+    background-color: #F9F9F9;
+    border-right: 1px solid #eee;
+    font-family: Inconsolata, monospace;
+    letter-spacing: 0.05em;
+    color: #999;
+    margin: 0;
+    padding: 15px;
+    font-size: 11px;
+    line-height: 1.5;
+    overflow: auto;
+    max-height: 320px;
+  }
+
+  &__json-value {
+    color: #00B9FD;
+  }
+
+  &__json-key {
+    color: #666;
+  }
+
+  &__json-string {
+    color: #f8625f;
+  }
+}
