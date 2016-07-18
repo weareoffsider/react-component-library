@@ -8,8 +8,9 @@ export default class UnwrappedRenderPane extends Component {
 
   render () {
     const {component, path, componentTestData,
-           variationPage, wrapper} = this.props
+           variationPage, wrapper, staticBuild} = this.props
     const propSetKeys = Object.keys(componentTestData)
+    const removeTestHref = staticBuild ? '..' : '?'
 
     const renders = propSetKeys.filter((key) => key !== "pagedVariations")
                                .filter((key) => {
@@ -29,7 +30,7 @@ export default class UnwrappedRenderPane extends Component {
     return rj`
       div
         = renders
-        a.ComponentServer__RemoveTestMode(href="?")
+        a.ComponentServer__RemoveTestMode(href=removeTestHref)
           span!= browserExpandIcon("ComponentServer__RemoveTestModeIcon")
           span.ComponentServer__RemoveTestModeLabel Show Component Browser
     `

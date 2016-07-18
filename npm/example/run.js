@@ -38,6 +38,7 @@ var server = (0, _main2.default)({
   }
 });
 
+var RENDER_PATH = __dirname + "/../../../build/";
 var ASSET_PATH = __dirname + "/../../../build/assets/";
 server.configApp(function (app) {
   app.use('/assets', express.static(ASSET_PATH));
@@ -46,3 +47,4 @@ server.configApp(function (app) {
 console.log("Running Component Server, port 3600");
 
 server.listen(3600);
+server.staticBuild(RENDER_PATH);

@@ -184,13 +184,17 @@ var Nav = function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var tree = this.props.tree;
+      var _props = this.props;
+      var tree = _props.tree;
+      var staticBuild = _props.staticBuild;
 
       var flatTree = this.flattenTree((0, _lodash.cloneDeep)(tree));
       var sections = this.delveTree([], flatTree, []);
 
+      var testHref = staticBuild ? './test' : '?test';
+
       return _react2.default.DOM.nav({ className: 'ComponentServerNav ' }, _react2.default.DOM.header({ className: 'ComponentServerNav__header ' }, _react2.default.DOM.span({ dangerouslySetInnerHTML: { __html: (0, _svg.squiggleIcon)('ComponentServerNav__headerIcon') } }), _react2.default.DOM.span({ className: 'ComponentServerNav__headerTitle ' }, 'Component Library'), _react2.default.DOM.a({
-        'href': '?test',
+        'href': testHref,
         className: 'ComponentServerNav__testModeLink ',
         dangerouslySetInnerHTML: { __html: (0, _svg.browserCollapseIcon)() }
       })), _react2.default.DOM.main({ className: 'ComponentServerNav__bd ' }, sections));

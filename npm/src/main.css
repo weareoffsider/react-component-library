@@ -87,6 +87,7 @@ body {
 }
 .ComponentServerNav__sectionLinkPages {
   list-style: square outside;
+  padding-left: 2.5rem;
 }
 .ComponentServerNav__pageLink {
   text-decoration: none;

@@ -10,6 +10,7 @@ export default class Layout extends Component {
       fullTree, path, component,
       componentTestData, wrapper,
       variationPage,
+      staticBuild,
       testMode,
     } = this.props
 
@@ -19,16 +20,18 @@ export default class Layout extends Component {
           component=component
           variationPage=variationPage
           componentTestData=componentTestData
+          staticBuild=staticBuild
           wrapper=wrapper
         )
       `
     } else {
       return rj`
         .ComponentServer
-          +Nav(tree=fullTree currentPath=path)
+          +Nav(tree=fullTree currentPath=path staticBuild=staticBuild)
           if component
             +RenderPane(
               component=component
+              staticBuild=staticBuild
               variationPage=variationPage
               componentTestData=componentTestData
               wrapper=wrapper

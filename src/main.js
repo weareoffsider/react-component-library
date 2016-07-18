@@ -3,6 +3,7 @@ import React from "react"
 import express from "express"
 import render from "./render"
 import collectComponents from "./collector"
+import {writePage} from "./staticBuild"
 
 export default function setupComponentServer (options) {
   options = options || {}
@@ -64,5 +65,88 @@ export default function setupComponentServer (options) {
     listen (port, hostname, backlog, callback) {
       app.listen(port, hostname, backlog, callback)
     },
+    staticBuild (renderPath, callback) {
+      console.log("Outputting static html to " + renderPath)
+      collectComponents(BASE_DIR, MATCHER, TEST_GETTER, BASE_DIR, ({pathList, fullTree}) => {
+        const homePage = render({
+          path: '/',
+          pathList, fullTree,
+          styles, scripts, extraHead,
+          staticBuild: true,
+        })
+        writePage(renderPath, homePage)
+
+        pathList.forEach((path) => {
+          const mod = require(BASE_DIR + '/' + path)
+          const component = mod.default ? mod.default : mod
+          const componentTestData = TEST_GETTER(component, BASE_DIR + '/' + path)
+          const testMode = false;
+
+          const componentPage = render({
+            path: '/' + path,
+            component,
+            variationPage: '',
+            componentTestData,
+            staticBuild: true,
+            wrapper: WRAPPER,
+            pathList, fullTree, testMode,
+            styles, scripts, extraHead,
+          })
+
+          writePage(renderPath + path, componentPage)
+
+          const testComponentPage = render({
+            path: '/' + path,
+            component,
+            variationPage: '',
+            componentTestData,
+            wrapper: WRAPPER,
+            pathList, fullTree,
+            staticBuild: true,
+            testMode: true,
+            styles, scripts, extraHead,
+          })
+
+          writePage(renderPath + path + '/test', testComponentPage)
+
+          if (componentTestData.pagedVariations) {
+            Object.keys(componentTestData).forEach((variationPage) => {
+              if (variationPage == 'pagedVariations') { return }
+
+              const variationRender = render({
+                path: '/' + path + '/' + variationPage ,
+                component,
+                variationPage,
+                componentTestData,
+                staticBuild: true,
+                wrapper: WRAPPER,
+                pathList, fullTree, testMode,
+                styles, scripts, extraHead,
+              })
+
+              writePage(renderPath + path + '/' + variationPage,
+                        variationRender)
+
+              const testVariationRender = render({
+                path: '/' + path + '/' + variationPage ,
+                component,
+                variationPage,
+                componentTestData,
+                staticBuild: true,
+                wrapper: WRAPPER,
+                pathList, fullTree,
+                testMode: true,
+                styles, scripts, extraHead,
+              })
+
+              writePage(renderPath + path + '/' + variationPage + '/test',
+                        testVariationRender)
+            })
+          }
+
+          console.log("Rendered files for " + path)
+        });
+      })
+    }
   }
 }

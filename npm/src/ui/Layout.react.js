@@ -49,6 +49,7 @@ var Layout = function (_Component) {
       var componentTestData = _props.componentTestData;
       var wrapper = _props.wrapper;
       var variationPage = _props.variationPage;
+      var staticBuild = _props.staticBuild;
       var testMode = _props.testMode;
 
 
@@ -57,14 +58,17 @@ var Layout = function (_Component) {
           'component': component,
           'variationPage': variationPage,
           'componentTestData': componentTestData,
+          'staticBuild': staticBuild,
           'wrapper': wrapper
         });
       } else {
         return _react2.default.DOM.div({ className: 'ComponentServer ' }, _react2.default.createElement(_Nav2.default, {
           'tree': fullTree,
-          'currentPath': path
+          'currentPath': path,
+          'staticBuild': staticBuild
         }), component ? _react2.default.createElement(_RenderPane2.default, {
           'component': component,
+          'staticBuild': staticBuild,
           'variationPage': variationPage,
           'componentTestData': componentTestData,
           'wrapper': wrapper

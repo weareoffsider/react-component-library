@@ -34,6 +34,7 @@ const server = ComponentServer({
   },
 })
 
+const RENDER_PATH = __dirname + "/../../../build/"
 const ASSET_PATH = __dirname + "/../../../build/assets/"
 server.configApp((app) => {
   app.use('/assets', express.static(ASSET_PATH))
@@ -42,3 +43,4 @@ server.configApp((app) => {
 console.log("Running Component Server, port 3600")
 
 server.listen(3600)
+server.staticBuild(RENDER_PATH);

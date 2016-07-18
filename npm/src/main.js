@@ -28,6 +28,8 @@ var _collector = require("./collector");
 
 var _collector2 = _interopRequireDefault(_collector);
 
+var _staticBuild = require("./staticBuild");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function setupComponentServer(options) {
@@ -103,6 +105,92 @@ function setupComponentServer(options) {
     },
     listen: function listen(port, hostname, backlog, callback) {
       app.listen(port, hostname, backlog, callback);
+    },
+    staticBuild: function staticBuild(renderPath, callback) {
+      console.log("Outputting static html to " + renderPath);
+      (0, _collector2.default)(BASE_DIR, MATCHER, TEST_GETTER, BASE_DIR, function (_ref3) {
+        var pathList = _ref3.pathList;
+        var fullTree = _ref3.fullTree;
+
+        var homePage = (0, _render2.default)({
+          path: '/',
+          pathList: pathList, fullTree: fullTree,
+          styles: styles, scripts: scripts, extraHead: extraHead,
+          staticBuild: true
+        });
+        (0, _staticBuild.writePage)(renderPath, homePage);
+
+        pathList.forEach(function (path) {
+          var mod = require(BASE_DIR + '/' + path);
+          var component = mod.default ? mod.default : mod;
+          var componentTestData = TEST_GETTER(component, BASE_DIR + '/' + path);
+          var testMode = false;
+
+          var componentPage = (0, _render2.default)({
+            path: '/' + path,
+            component: component,
+            variationPage: '',
+            componentTestData: componentTestData,
+            staticBuild: true,
+            wrapper: WRAPPER,
+            pathList: pathList, fullTree: fullTree, testMode: testMode,
+            styles: styles, scripts: scripts, extraHead: extraHead
+          });
+
+          (0, _staticBuild.writePage)(renderPath + path, componentPage);
+
+          var testComponentPage = (0, _render2.default)({
+            path: '/' + path,
+            component: component,
+            variationPage: '',
+            componentTestData: componentTestData,
+            wrapper: WRAPPER,
+            pathList: pathList, fullTree: fullTree,
+            staticBuild: true,
+            testMode: true,
+            styles: styles, scripts: scripts, extraHead: extraHead
+          });
+
+          (0, _staticBuild.writePage)(renderPath + path + '/test', testComponentPage);
+
+          if (componentTestData.pagedVariations) {
+            Object.keys(componentTestData).forEach(function (variationPage) {
+              if (variationPage == 'pagedVariations') {
+                return;
+              }
+
+              var variationRender = (0, _render2.default)({
+                path: '/' + path + '/' + variationPage,
+                component: component,
+                variationPage: variationPage,
+                componentTestData: componentTestData,
+                staticBuild: true,
+                wrapper: WRAPPER,
+                pathList: pathList, fullTree: fullTree, testMode: testMode,
+                styles: styles, scripts: scripts, extraHead: extraHead
+              });
+
+              (0, _staticBuild.writePage)(renderPath + path + '/' + variationPage, variationRender);
+
+              var testVariationRender = (0, _render2.default)({
+                path: '/' + path + '/' + variationPage,
+                component: component,
+                variationPage: variationPage,
+                componentTestData: componentTestData,
+                staticBuild: true,
+                wrapper: WRAPPER,
+                pathList: pathList, fullTree: fullTree,
+                testMode: true,
+                styles: styles, scripts: scripts, extraHead: extraHead
+              });
+
+              (0, _staticBuild.writePage)(renderPath + path + '/' + variationPage + '/test', testVariationRender);
+            });
+          }
+
+          console.log("Rendered files for " + path);
+        });
+      });
     }
   };
 }

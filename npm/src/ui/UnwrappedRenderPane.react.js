@@ -46,8 +46,10 @@ var UnwrappedRenderPane = function (_Component) {
       var componentTestData = _props.componentTestData;
       var variationPage = _props.variationPage;
       var wrapper = _props.wrapper;
+      var staticBuild = _props.staticBuild;
 
       var propSetKeys = Object.keys(componentTestData);
+      var removeTestHref = staticBuild ? '..' : '?';
 
       var renders = propSetKeys.filter(function (key) {
         return key !== "pagedVariations";
@@ -66,7 +68,7 @@ var UnwrappedRenderPane = function (_Component) {
       });
 
       return _react2.default.DOM.div({}, renders, _react2.default.DOM.a({
-        'href': '?',
+        'href': removeTestHref,
         className: 'ComponentServer__RemoveTestMode '
       }, _react2.default.DOM.span({ dangerouslySetInnerHTML: { __html: (0, _svg.browserExpandIcon)('ComponentServer__RemoveTestModeIcon') } }), _react2.default.DOM.span({ className: 'ComponentServer__RemoveTestModeLabel ' }, 'Show Component Browser')));
     }

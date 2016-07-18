@@ -128,16 +128,18 @@ export default class Nav extends Component {
   }
 
   render () {
-    const {tree} = this.props
+    const {tree, staticBuild} = this.props
     const flatTree = this.flattenTree(cloneDeep(tree))
     const sections = this.delveTree([], flatTree, [])
+
+    const testHref = staticBuild ? './test' : '?test'
 
     return rj`
       nav.ComponentServerNav
         header.ComponentServerNav__header
           span!= squiggleIcon('ComponentServerNav__headerIcon')
           span.ComponentServerNav__headerTitle Component Library
-          a.ComponentServerNav__testModeLink(href="?test")
+          a.ComponentServerNav__testModeLink(href=testHref)
             != browserCollapseIcon()
         main.ComponentServerNav__bd
           = sections
