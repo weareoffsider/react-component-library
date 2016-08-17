@@ -85,6 +85,7 @@
     "watchify": "^3.2.3",
     "waypoints": "^4.0.0",
     "webpack": "^1.10.5",
+    "webpack-stream": "^3.2.0",
     "zenscroll": "^3.0.2"
   },
   "dependencies": {
