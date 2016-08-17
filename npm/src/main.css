@@ -1,7 +1,4 @@
 @import url(https://fonts.googleapis.com/css?family=Karla);
-path {
-  fill: currentColor;
-}
 html,
 body {
   margin: 0;
@@ -48,10 +45,12 @@ body {
   border-radius: 2px;
   text-decoration: none;
   padding: 10px;
-  color: #fff;
 }
-.ComponentServerNav__testModeLink:hover {
-  color: #7ED321;
+.ComponentServerNav__testModeLink path {
+  fill: #fff;
+}
+.ComponentServerNav__testModeLink:hover path {
+  fill: #7ED321;
 }
 .ComponentServerNav__bd {
   overflow: auto;

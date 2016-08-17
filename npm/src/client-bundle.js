@@ -89,7 +89,7 @@
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
 
-	/*! cash-dom 1.3.0, https://github.com/kenwheeler/cash @license MIT */
+	/*! cash-dom 1.3.4, https://github.com/kenwheeler/cash @license MIT */
 	(function (root, factory) {
 	  if (true) {
 	    !(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -480,8 +480,8 @@
 	    },
 
 	    index: function (elem) {
-	      var f = this[0];
-	      return slice.call(elem ? cash(elem) : cash(f).parent().children()).indexOf(f);
+	      var child = elem ? cash(elem)[0] : this[0], collection = elem ? this : cash(child).parent().children();
+	      return slice.call(collection).indexOf(child);
 	    },
 
 	    last: function () {
@@ -490,14 +490,17 @@
 
 	  });
 
-	  var getPrefixedProp = (function () {
-	    var cache = {}, div = doc.createElement("div"), style = div.style, camelRegex = /(?:^\w|[A-Z]|\b\w)/g, whiteSpace = /\s+/g;
-
-	    function camelCase(str) {
+	  var camelCase = (function () {
+	    var camelRegex = /(?:^\w|[A-Z]|\b\w)/g, whiteSpace = /[\s-_]+/g;
+	    return function (str) {
 	      return str.replace(camelRegex, function (letter, index) {
 	        return letter[index === 0 ? "toLowerCase" : "toUpperCase"]();
 	      }).replace(whiteSpace, "");
-	    }
+	    };
+	  }());
+
+	  var getPrefixedProp = (function () {
+	    var cache = {}, doc = document, div = doc.createElement("div"), style = div.style;
 
 	    return function (prop) {
 	      prop = camelCase(prop);
@@ -518,11 +521,14 @@
 	    };
 	  }());
 
+	  cash.prefixedProp = getPrefixedProp;
+	  cash.camelCase = camelCase;
+
 	  fn.extend({
 	    css: function (prop, value) {
 	      if (isString(prop)) {
 	        prop = getPrefixedProp(prop);
-	        return (value ? this.each(function (v) {
+	        return (arguments.length > 1 ? this.each(function (v) {
 	          return v.style[prop] = value;
 	        }) : win.getComputedStyle(this[0])[prop]);
 	      }
@@ -803,7 +809,7 @@
 	    },
 
 	    text: function (content) {
-	      if (!content) {
+	      if (content === undefined) {
 	        return this[0].textContent;
 	      }
 	      return this.each(function (v) {

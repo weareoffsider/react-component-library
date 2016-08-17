@@ -44,16 +44,7 @@ var HTMLWrapper = function (_Component) {
             return _react2.default.DOM.html({
                 'lang': '',
                 className: 'no-js '
-            }, _react2.default.DOM.head({}, _react2.default.DOM.meta({ 'charSet': 'utf-8' }), _react2.default.DOM.meta({
-                'httpEquiv': 'x-ua-compatible',
-                'content': 'ie-edge'
-            }), _react2.default.DOM.title({}, 'ComponentServer'), _react2.default.DOM.meta({
-                'name': 'description',
-                'content': ''
-            }), _react2.default.DOM.meta({
-                'name': 'viewport',
-                'content': 'width=device-width'
-            }), _react2.default.DOM.style({ dangerouslySetInnerHTML: { __html: clientStyle } }), styles.map(function (s, $index) {
+            }, _react2.default.DOM.head({}, _react2.default.DOM.meta({ 'charSet': 'utf-8' }), _react2.default.DOM.title({}, 'ComponentServer'), _react2.default.DOM.style({ dangerouslySetInnerHTML: { __html: clientStyle } }), styles.map(function (s, $index) {
                 return _react2.default.DOM.link({
                     'rel': 'stylesheet',
                     'key': s,

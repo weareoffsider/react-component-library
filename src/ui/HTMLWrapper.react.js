@@ -14,10 +14,7 @@ export default class HTMLWrapper extends Component {
       html.no-js(lang="")
         head
           meta(charSet="utf-8")
-          meta(httpEquiv="x-ua-compatible" content="ie-edge")
           title ComponentServer
-          meta(name="description" content="")
-          meta(name="viewport" content="width=device-width")
           style!= clientStyle
           for s in styles
             link(rel="stylesheet" key=s href=s)
@@ -33,4 +30,3 @@ export default class HTMLWrapper extends Component {
     `
   }
 }
-

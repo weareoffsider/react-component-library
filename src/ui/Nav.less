@@ -47,15 +47,16 @@
       position: absolute;
       top: 0;
       right: 0;
-      // display: block;
-      // background: @globalColor-primary;
       border-radius: 2px;
       text-decoration: none;
       padding: 10px;
-      color: #fff;
 
-      &:hover {
-        color: @globalColor-primary;
+      path {
+        fill: #fff;
+      }
+
+      &:hover path {
+        fill: @globalColor-primary;
       }
     }
 
@@ -94,7 +95,10 @@
     &__sectionIcon {
       display: inline-block;
       margin-right: 10px;
-      // display: none;
+
+      path {
+        fill: currentColor;
+      }
     }
 
   // ul
