@@ -71,6 +71,9 @@ body {
   display: inline-block;
   margin-right: 10px;
 }
+.ComponentServerNav__sectionIcon path {
+  fill: currentColor;
+}
 .ComponentServerNav__sectionLinks {
   display: none;
   list-style: none;
