@@ -13,6 +13,7 @@ export default function setupComponentServer (options) {
   const MATCHER = options.matcher
   const WRAPPER = options.wrapComponent || React.createElement
   const TEST_GETTER = options.getTestData
+  const COMPONENT_PATH = options.routePath || /(.*react\.js)\/?(.*)$/
   const styles = options.styles || []
   const scripts = options.scripts || []
   const extraHead = options.extraHead || []
@@ -26,8 +27,6 @@ export default function setupComponentServer (options) {
       }))
     })
   })
-
-  const COMPONENT_PATH = /(.*react\.js)\/?(.*)$/
 
   app.get(COMPONENT_PATH, (req, res) => {
     const match = req.path.match(COMPONENT_PATH);

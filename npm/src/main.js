@@ -40,6 +40,7 @@ function setupComponentServer(options) {
   var MATCHER = options.matcher;
   var WRAPPER = options.wrapComponent || _react2.default.createElement;
   var TEST_GETTER = options.getTestData;
+  var COMPONENT_PATH = options.routePath || /(.*react\.js)\/?(.*)$/;
   var styles = options.styles || [];
   var scripts = options.scripts || [];
   var extraHead = options.extraHead || [];
@@ -56,8 +57,6 @@ function setupComponentServer(options) {
       }));
     });
   });
-
-  var COMPONENT_PATH = /(.*react\.js)\/?(.*)$/;
 
   app.get(COMPONENT_PATH, function (req, res) {
     var match = req.path.match(COMPONENT_PATH);
