@@ -2,6 +2,7 @@ import glob from "glob"
 import React from "react"
 import express from "express"
 import render from "./render"
+import fs from 'fs'
 import collectComponents from "./collector"
 import {writePage} from "./staticBuild"
 
@@ -13,6 +14,8 @@ export default function setupComponentServer (options) {
   const MATCHER = options.matcher
   const WRAPPER = options.wrapComponent || React.createElement
   const TEST_GETTER = options.getTestData
+  const TEST_CSS_GETTER = options.getTestCSSPath
+  const TEST_JS_GETTER = options.getTestJSPath
   const COMPONENT_PATH = options.routePath || /(.*react\.js)\/?(.*)$/
   const styles = options.styles || []
   const scripts = options.scripts || []
@@ -38,12 +41,32 @@ export default function setupComponentServer (options) {
       collectComponents(BASE_DIR, MATCHER, TEST_GETTER, BASE_DIR, ({pathList, fullTree}) => {
         const component = mod.default ? mod.default : mod
         const componentTestData = TEST_GETTER(component, BASE_DIR + componentPath)
+        let testCSS = ''
+        let testJS = ''
         const testMode = req.query.test !== undefined
+
+        if (TEST_CSS_GETTER) {
+          const testCSSPath = TEST_CSS_GETTER(component, BASE_DIR + componentPath)
+          try {
+            testCSS = fs.readFileSync(testCSSPath, {encoding: 'utf-8'})
+          } catch (e) {
+          }
+        }
+
+        if (TEST_JS_GETTER) {
+          const testJSPath = TEST_JS_GETTER(component, BASE_DIR + componentPath)
+          try {
+            testJS = fs.readFileSync(testJSPath, {encoding: 'utf-8'})
+          } catch (e) {
+          }
+        }
 
         res.send(render({
           path: req.path,
           component,
           variationPage,
+          componentTestCSS: testCSS,
+          componentTestJS: testJS,
           componentTestData,
           wrapper: WRAPPER,
           pathList, fullTree, testMode,
@@ -79,12 +102,33 @@ export default function setupComponentServer (options) {
           const mod = require(BASE_DIR + '/' + path)
           const component = mod.default ? mod.default : mod
           const componentTestData = TEST_GETTER(component, BASE_DIR + '/' + path)
+          let testCSS = ''
+          let testJS = ''
           const testMode = false;
+
+          if (TEST_CSS_GETTER) {
+            const testCSSPath = TEST_CSS_GETTER(component, BASE_DIR + '/' + path)
+            try {
+              testCSS = fs.readFileSync(testCSSPath, {encoding: 'utf-8'})
+            } catch (e) {
+            }
+          }
+
+          if (TEST_JS_GETTER) {
+            const testJSPath = TEST_JS_GETTER(component, BASE_DIR + '/' + path)
+            try {
+              testJS = fs.readFileSync(testJSPath, {encoding: 'utf-8'})
+            } catch (e) {
+            }
+          }
+
 
           const componentPage = render({
             path: '/' + path,
             component,
             variationPage: '',
+            componentTestCSS: testCSS,
+            componentTestJS: testJS,
             componentTestData,
             staticBuild: true,
             wrapper: WRAPPER,
@@ -99,6 +143,8 @@ export default function setupComponentServer (options) {
             component,
             variationPage: '',
             componentTestData,
+            componentTestCSS: testCSS,
+            componentTestJS: testJS,
             wrapper: WRAPPER,
             pathList, fullTree,
             staticBuild: true,

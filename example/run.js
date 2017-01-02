@@ -29,6 +29,14 @@ const server = ComponentServer({
       return {default: {}}
     }
   },
+  getTestCSSPath: (component, path) => {
+    const dataPath = path.replace(".react.js", ".test.css")
+    return dataPath
+  },
+  getTestJSPath: (component, path) => {
+    const dataPath = path.replace(".react.js", ".test.js")
+    return dataPath
+  },
   wrapComponent: (component, props) => {
     return React.createElement(component, props || {});
   },
@@ -42,5 +50,5 @@ server.configApp((app) => {
 
 console.log("Running Component Server, port 3600")
 
-server.listen(3600)
 server.staticBuild(RENDER_PATH);
+server.listen(3600)

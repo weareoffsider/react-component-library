@@ -8,6 +8,7 @@ export default class UnwrappedRenderPane extends Component {
 
   render () {
     const {component, path, componentTestData,
+           componentTestCSS,
            variationPage, wrapper, staticBuild} = this.props
     const propSetKeys = Object.keys(componentTestData)
     const removeTestHref = staticBuild ? '..' : '?'
@@ -28,7 +29,8 @@ export default class UnwrappedRenderPane extends Component {
     })
 
     return rj`
-      div
+      div.RawRenderContainer
+        style!= componentTestCSS
         = renders
         a.ComponentServer__RemoveTestMode(href=removeTestHref)
           span!= browserExpandIcon("ComponentServer__RemoveTestModeIcon")

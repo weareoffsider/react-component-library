@@ -19,6 +19,7 @@ var CONFIG = {
       "scripts:compile",
       "scripts:client-bundle",
       "styles:compile",
+      "styles:copy-test-styles",
     ],
     fullBuild: [
       "scripts:compile",

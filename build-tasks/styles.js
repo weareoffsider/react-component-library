@@ -37,6 +37,17 @@ gulp.task("styles:compile", function() {
     .pipe(using())
 })
 
+
+gulp.task("styles:copy-test-styles", function() {
+  return gulp.src([
+    CONFIG.paths.exampleSrc + '/**/*.test.css',
+  ], { base: './' })
+    .pipe(defaultPlumber())
+    .on("error", dispatchErrors("less", true))
+    .pipe(gulp.dest(CONFIG.paths.scriptsOut))
+    .pipe(using())
+})
+
 gulp.task("styles:dependency-check", function() {
   return gulp.src([
     CONFIG.paths.componentServer + "/ui/**/*.less",

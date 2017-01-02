@@ -9,6 +9,7 @@ export default class Layout extends Component {
     const {
       fullTree, path, component,
       componentTestData, wrapper,
+      componentTestCSS,
       variationPage,
       staticBuild,
       testMode,
@@ -19,6 +20,7 @@ export default class Layout extends Component {
         +UnwrappedRenderPane(
           component=component
           variationPage=variationPage
+          componentTestCSS=componentTestCSS
           componentTestData=componentTestData
           staticBuild=staticBuild
           wrapper=wrapper
@@ -31,6 +33,7 @@ export default class Layout extends Component {
           if component
             +RenderPane(
               component=component
+              componentTestCSS=componentTestCSS
               staticBuild=staticBuild
               variationPage=variationPage
               componentTestData=componentTestData

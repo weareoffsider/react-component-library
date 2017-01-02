@@ -47,6 +47,8 @@ gulp.task("dev", ["clean"], function() {
 
   chokidar.watch(CONFIG.paths.exampleSrc + "/**/*.less")
           .on("all", runTasks(["styles:compile", "styles:dependency-check"]))
+  chokidar.watch(CONFIG.paths.exampleSrc + "/**/*.css")
+          .on("all", runTasks(["styles:copy-test-styles"]))
   chokidar.watch(CONFIG.paths.componentServer + "/**/*.less")
           .on("all", runTasks(["styles:compile", "styles:dependency-check"]))
   chokidar.watch(CONFIG.paths.exampleSrc + "/**/*.js")

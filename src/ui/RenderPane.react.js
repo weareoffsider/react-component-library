@@ -7,6 +7,7 @@ export default class RenderPane extends Component {
 
   render () {
     const {component, path, componentTestData,
+           componentTestCSS,
            variationPage, wrapper} = this.props
     const propSetKeys = Object.keys(componentTestData)
 
@@ -28,6 +29,7 @@ export default class RenderPane extends Component {
 
     return rj`
       main.ComponentServerRenderPane
+        style!= componentTestCSS
         header.ComponentServerRenderPane__header
           h1.ComponentServerRenderPane__title
             = component.displayName || "DisplayName not provided"
@@ -75,7 +77,7 @@ export class RenderComponent extends Component {
     return rj`
       section.RenderComponent
         h2.RenderComponent__header= this.spaceCamelCase(title)
-        .RenderComponent__wrapper(
+        .RenderComponent__wrapper.RenderContainer(
           data-component=component.displayName
           data-component-variation=title,
         )

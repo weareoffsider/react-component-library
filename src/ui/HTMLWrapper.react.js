@@ -4,7 +4,7 @@ var fs = require('fs')
 
 export default class HTMLWrapper extends Component {
   render () {
-    const {rawHTML, scripts, styles, extraHead} = this.props;
+    const {rawHTML, scripts, styles, extraHead, testJS} = this.props;
     const clientScript = fs.readFileSync(__dirname + '/../client-bundle.js',
                                          'utf8')
     const clientStyle = fs.readFileSync(__dirname + '/../main.css',
@@ -26,6 +26,9 @@ export default class HTMLWrapper extends Component {
             script(type="text/javascript" key=s src=s)
 
           script!= clientScript
+
+          if testJS
+            script!= testJS
 
     `
   }

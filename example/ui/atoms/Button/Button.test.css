@@ -1,0 +1,6 @@
+/* CSS used in the component library to better test this specific component
+ * whilst in isolation */
+
+.RenderContainer {
+  padding: 2rem;
+}
