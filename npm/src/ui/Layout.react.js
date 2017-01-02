@@ -36,7 +36,7 @@ var Layout = function (_Component) {
   function Layout() {
     _classCallCheck(this, Layout);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Layout).apply(this, arguments));
+    return _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).apply(this, arguments));
   }
 
   _createClass(Layout, [{
@@ -48,6 +48,7 @@ var Layout = function (_Component) {
       var component = _props.component;
       var componentTestData = _props.componentTestData;
       var wrapper = _props.wrapper;
+      var componentTestCSS = _props.componentTestCSS;
       var variationPage = _props.variationPage;
       var staticBuild = _props.staticBuild;
       var testMode = _props.testMode;
@@ -57,6 +58,7 @@ var Layout = function (_Component) {
         return _react2.default.createElement(_UnwrappedRenderPane2.default, {
           'component': component,
           'variationPage': variationPage,
+          'componentTestCSS': componentTestCSS,
           'componentTestData': componentTestData,
           'staticBuild': staticBuild,
           'wrapper': wrapper
@@ -68,6 +70,7 @@ var Layout = function (_Component) {
           'staticBuild': staticBuild
         }), component ? _react2.default.createElement(_RenderPane2.default, {
           'component': component,
+          'componentTestCSS': componentTestCSS,
           'staticBuild': staticBuild,
           'variationPage': variationPage,
           'componentTestData': componentTestData,

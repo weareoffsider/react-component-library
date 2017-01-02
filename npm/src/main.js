@@ -24,6 +24,10 @@ var _render = require("./render");
 
 var _render2 = _interopRequireDefault(_render);
 
+var _fs = require("fs");
+
+var _fs2 = _interopRequireDefault(_fs);
+
 var _collector = require("./collector");
 
 var _collector2 = _interopRequireDefault(_collector);
@@ -40,6 +44,8 @@ function setupComponentServer(options) {
   var MATCHER = options.matcher;
   var WRAPPER = options.wrapComponent || _react2.default.createElement;
   var TEST_GETTER = options.getTestData;
+  var TEST_CSS_GETTER = options.getTestCSSPath;
+  var TEST_JS_GETTER = options.getTestJSPath;
   var COMPONENT_PATH = options.routePath || /(.*react\.js)\/?(.*)$/;
   var styles = options.styles || [];
   var scripts = options.scripts || [];
@@ -78,12 +84,30 @@ function setupComponentServer(options) {
 
           var component = mod.default ? mod.default : mod;
           var componentTestData = TEST_GETTER(component, BASE_DIR + componentPath);
+          var testCSS = '';
+          var testJS = '';
           var testMode = req.query.test !== undefined;
+
+          if (TEST_CSS_GETTER) {
+            var testCSSPath = TEST_CSS_GETTER(component, BASE_DIR + componentPath);
+            try {
+              testCSS = _fs2.default.readFileSync(testCSSPath, { encoding: 'utf-8' });
+            } catch (e) {}
+          }
+
+          if (TEST_JS_GETTER) {
+            var testJSPath = TEST_JS_GETTER(component, BASE_DIR + componentPath);
+            try {
+              testJS = _fs2.default.readFileSync(testJSPath, { encoding: 'utf-8' });
+            } catch (e) {}
+          }
 
           res.send((0, _render2.default)({
             path: req.path,
             component: component,
             variationPage: variationPage,
+            componentTestCSS: testCSS,
+            componentTestJS: testJS,
             componentTestData: componentTestData,
             wrapper: WRAPPER,
             pathList: pathList, fullTree: fullTree, testMode: testMode,
@@ -123,12 +147,30 @@ function setupComponentServer(options) {
           var mod = require(BASE_DIR + '/' + path);
           var component = mod.default ? mod.default : mod;
           var componentTestData = TEST_GETTER(component, BASE_DIR + '/' + path);
+          var testCSS = '';
+          var testJS = '';
           var testMode = false;
+
+          if (TEST_CSS_GETTER) {
+            var testCSSPath = TEST_CSS_GETTER(component, BASE_DIR + '/' + path);
+            try {
+              testCSS = _fs2.default.readFileSync(testCSSPath, { encoding: 'utf-8' });
+            } catch (e) {}
+          }
+
+          if (TEST_JS_GETTER) {
+            var testJSPath = TEST_JS_GETTER(component, BASE_DIR + '/' + path);
+            try {
+              testJS = _fs2.default.readFileSync(testJSPath, { encoding: 'utf-8' });
+            } catch (e) {}
+          }
 
           var componentPage = (0, _render2.default)({
             path: '/' + path,
             component: component,
             variationPage: '',
+            componentTestCSS: testCSS,
+            componentTestJS: testJS,
             componentTestData: componentTestData,
             staticBuild: true,
             wrapper: WRAPPER,
@@ -143,6 +185,8 @@ function setupComponentServer(options) {
             component: component,
             variationPage: '',
             componentTestData: componentTestData,
+            componentTestCSS: testCSS,
+            componentTestJS: testJS,
             wrapper: WRAPPER,
             pathList: pathList, fullTree: fullTree,
             staticBuild: true,

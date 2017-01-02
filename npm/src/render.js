@@ -30,6 +30,7 @@ function render(props) {
     rawHTML: appRender,
     styles: props.styles,
     scripts: props.scripts,
+    testJS: props.componentTestJS,
     extraHead: props.extraHead
   }));
 

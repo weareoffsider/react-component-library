@@ -31,7 +31,7 @@ var UnwrappedRenderPane = function (_Component) {
   function UnwrappedRenderPane() {
     _classCallCheck(this, UnwrappedRenderPane);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(UnwrappedRenderPane).apply(this, arguments));
+    return _possibleConstructorReturn(this, (UnwrappedRenderPane.__proto__ || Object.getPrototypeOf(UnwrappedRenderPane)).apply(this, arguments));
   }
 
   _createClass(UnwrappedRenderPane, [{
@@ -44,6 +44,7 @@ var UnwrappedRenderPane = function (_Component) {
       var component = _props.component;
       var path = _props.path;
       var componentTestData = _props.componentTestData;
+      var componentTestCSS = _props.componentTestCSS;
       var variationPage = _props.variationPage;
       var wrapper = _props.wrapper;
       var staticBuild = _props.staticBuild;
@@ -67,7 +68,7 @@ var UnwrappedRenderPane = function (_Component) {
         });
       });
 
-      return _react2.default.DOM.div({}, renders, _react2.default.DOM.a({
+      return _react2.default.DOM.div({ className: 'RawRenderContainer ' }, _react2.default.DOM.style({ dangerouslySetInnerHTML: { __html: componentTestCSS } }), renders, _react2.default.DOM.a({
         'href': removeTestHref,
         className: 'ComponentServer__RemoveTestMode '
       }, _react2.default.DOM.span({ dangerouslySetInnerHTML: { __html: (0, _svg.browserExpandIcon)('ComponentServer__RemoveTestModeIcon') } }), _react2.default.DOM.span({ className: 'ComponentServer__RemoveTestModeLabel ' }, 'Show Component Browser')));
@@ -85,7 +86,7 @@ var UnwrappedRenderComponent = exports.UnwrappedRenderComponent = function (_Com
   function UnwrappedRenderComponent() {
     _classCallCheck(this, UnwrappedRenderComponent);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(UnwrappedRenderComponent).apply(this, arguments));
+    return _possibleConstructorReturn(this, (UnwrappedRenderComponent.__proto__ || Object.getPrototypeOf(UnwrappedRenderComponent)).apply(this, arguments));
   }
 
   _createClass(UnwrappedRenderComponent, [{

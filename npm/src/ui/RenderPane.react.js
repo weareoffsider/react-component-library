@@ -29,7 +29,7 @@ var RenderPane = function (_Component) {
   function RenderPane() {
     _classCallCheck(this, RenderPane);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(RenderPane).apply(this, arguments));
+    return _possibleConstructorReturn(this, (RenderPane.__proto__ || Object.getPrototypeOf(RenderPane)).apply(this, arguments));
   }
 
   _createClass(RenderPane, [{
@@ -42,6 +42,7 @@ var RenderPane = function (_Component) {
       var component = _props.component;
       var path = _props.path;
       var componentTestData = _props.componentTestData;
+      var componentTestCSS = _props.componentTestCSS;
       var variationPage = _props.variationPage;
       var wrapper = _props.wrapper;
 
@@ -63,7 +64,7 @@ var RenderPane = function (_Component) {
         });
       });
 
-      return _react2.default.DOM.main({ className: 'ComponentServerRenderPane ' }, _react2.default.DOM.header({ className: 'ComponentServerRenderPane__header ' }, _react2.default.DOM.h1({ className: 'ComponentServerRenderPane__title ' }, component.displayName || "DisplayName not provided")), renders);
+      return _react2.default.DOM.main({ className: 'ComponentServerRenderPane ' }, _react2.default.DOM.style({ dangerouslySetInnerHTML: { __html: componentTestCSS } }), _react2.default.DOM.header({ className: 'ComponentServerRenderPane__header ' }, _react2.default.DOM.h1({ className: 'ComponentServerRenderPane__title ' }, component.displayName || "DisplayName not provided")), renders);
     }
   }]);
 
@@ -81,7 +82,7 @@ var RenderComponent = exports.RenderComponent = function (_Component2) {
   function RenderComponent() {
     _classCallCheck(this, RenderComponent);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(RenderComponent).apply(this, arguments));
+    return _possibleConstructorReturn(this, (RenderComponent.__proto__ || Object.getPrototypeOf(RenderComponent)).apply(this, arguments));
   }
 
   _createClass(RenderComponent, [{
@@ -130,7 +131,7 @@ var RenderComponent = exports.RenderComponent = function (_Component2) {
       return _react2.default.DOM.section({ className: 'RenderComponent ' }, _react2.default.DOM.h2({ className: 'RenderComponent__header ' }, this.spaceCamelCase(title)), _react2.default.DOM.div({
         'data-component': component.displayName,
         'data-component-variation': title,
-        className: 'RenderComponent__wrapper '
+        className: 'RenderComponent__wrapper RenderContainer '
       }, wrapper(component, data)), _react2.default.DOM.div({ className: 'RenderComponent__jsonWrapper ' }, _react2.default.DOM.pre({
         className: 'RenderComponent__json ',
         dangerouslySetInnerHTML: { __html: this.prettyPrint(data) }

@@ -33,6 +33,14 @@ var server = (0, _main2.default)({
       return { default: {} };
     }
   },
+  getTestCSSPath: function getTestCSSPath(component, path) {
+    var dataPath = path.replace(".react.js", ".test.css");
+    return dataPath;
+  },
+  getTestJSPath: function getTestJSPath(component, path) {
+    var dataPath = path.replace(".react.js", ".test.js");
+    return dataPath;
+  },
   wrapComponent: function wrapComponent(component, props) {
     return React.createElement(component, props || {});
   }
@@ -46,5 +54,5 @@ server.configApp(function (app) {
 
 console.log("Running Component Server, port 3600");
 
-server.listen(3600);
 server.staticBuild(RENDER_PATH);
+server.listen(3600);

@@ -26,7 +26,7 @@ var HTMLWrapper = function (_Component) {
     function HTMLWrapper() {
         _classCallCheck(this, HTMLWrapper);
 
-        return _possibleConstructorReturn(this, Object.getPrototypeOf(HTMLWrapper).apply(this, arguments));
+        return _possibleConstructorReturn(this, (HTMLWrapper.__proto__ || Object.getPrototypeOf(HTMLWrapper)).apply(this, arguments));
     }
 
     _createClass(HTMLWrapper, [{
@@ -37,6 +37,7 @@ var HTMLWrapper = function (_Component) {
             var scripts = _props.scripts;
             var styles = _props.styles;
             var extraHead = _props.extraHead;
+            var testJS = _props.testJS;
 
             var clientScript = fs.readFileSync(__dirname + '/../client-bundle.js', 'utf8');
             var clientStyle = fs.readFileSync(__dirname + '/../main.css', 'utf8');
@@ -59,7 +60,7 @@ var HTMLWrapper = function (_Component) {
                     'key': s,
                     'src': s
                 });
-            }, this), _react2.default.DOM.script({ dangerouslySetInnerHTML: { __html: clientScript } })));
+            }, this), _react2.default.DOM.script({ dangerouslySetInnerHTML: { __html: clientScript } }), testJS ? _react2.default.DOM.script({ dangerouslySetInnerHTML: { __html: testJS } }) : null));
         }
     }]);
 
