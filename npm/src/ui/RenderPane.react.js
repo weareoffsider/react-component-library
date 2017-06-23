@@ -131,6 +131,7 @@ var RenderComponent = exports.RenderComponent = function (_Component2) {
       return _react2.default.DOM.section({ className: 'RenderComponent ' }, _react2.default.DOM.h2({ className: 'RenderComponent__header ' }, this.spaceCamelCase(title)), _react2.default.DOM.div({
         'data-component': component.displayName,
         'data-component-variation': title,
+        'data-component-data': JSON.stringify(data),
         className: 'RenderComponent__wrapper RenderContainer '
       }, wrapper(component, data)), _react2.default.DOM.div({ className: 'RenderComponent__jsonWrapper ' }, _react2.default.DOM.pre({
         className: 'RenderComponent__json ',

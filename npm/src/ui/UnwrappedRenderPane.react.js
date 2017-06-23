@@ -99,7 +99,12 @@ var UnwrappedRenderComponent = exports.UnwrappedRenderComponent = function (_Com
       var wrapper = _props2.wrapper;
 
 
-      return wrapper(component, data);
+      return _react2.default.DOM.div({
+        'data-component': component.displayName,
+        'data-component-variation': title,
+        'data-component-data': JSON.stringify(data),
+        className: 'RenderContainer '
+      }, wrapper(component, data));
     }
   }]);
 

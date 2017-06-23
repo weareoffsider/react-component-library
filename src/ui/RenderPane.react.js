@@ -79,7 +79,8 @@ export class RenderComponent extends Component {
         h2.RenderComponent__header= this.spaceCamelCase(title)
         .RenderComponent__wrapper.RenderContainer(
           data-component=component.displayName
-          data-component-variation=title,
+          data-component-variation=title
+          data-component-data=JSON.stringify(data)
         )
           = wrapper(component, data)
         .RenderComponent__jsonWrapper

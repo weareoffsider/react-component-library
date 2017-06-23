@@ -43,6 +43,13 @@ export class UnwrappedRenderComponent extends Component {
   render () {
     const {component, title, data, wrapper} = this.props
 
-    return wrapper(component, data)
+    return rj`
+      .RenderContainer(
+        data-component=component.displayName
+        data-component-variation=title
+        data-component-data=JSON.stringify(data)
+      )
+        = wrapper(component, data)
+    `
   }
 }
