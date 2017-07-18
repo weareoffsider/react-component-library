@@ -9,11 +9,12 @@
 
 .ComponentServerNav {
   ._typography-default();
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: (@Nav-width - 1px); // account for border width
+  position:  fixed;
+  top:       0;
+  left:      0;
+  height:    100vh;
+  width:     (@Nav-width - 1px); // account for border width
+  z-index:   8000000;
 
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
