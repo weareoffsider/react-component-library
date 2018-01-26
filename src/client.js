@@ -19,6 +19,7 @@ import cash from 'cash-dom'
 
   $(".RenderComponent__wrapper").each(function() {
     const child = this.childNodes[0];
+    if (!child) { return }
     const childStyles = window.getComputedStyle(child)
     const origHeight = child.offsetHeight;
 

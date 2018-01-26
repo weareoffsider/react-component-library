@@ -23,6 +23,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
   $(".RenderComponent__wrapper").each(function () {
     var child = this.childNodes[0];
+    if (!child) {
+      return;
+    }
     var childStyles = window.getComputedStyle(child);
     var origHeight = child.offsetHeight;
 
