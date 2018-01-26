@@ -69,7 +69,8 @@
 
 	  $(".RenderComponent__wrapper").each(function () {
 	    var child = this.childNodes[0];
-	    if (!child) {
+	    if (child.constructor.name == "Comment") {
+	      // must be a blank node, bail here
 	      return;
 	    }
 	    var childStyles = window.getComputedStyle(child);

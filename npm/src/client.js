@@ -23,7 +23,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
   $(".RenderComponent__wrapper").each(function () {
     var child = this.childNodes[0];
-    if (!child) {
+    if (child.constructor.name == "Comment") {
+      // must be a blank node, bail here
       return;
     }
     var childStyles = window.getComputedStyle(child);

@@ -19,7 +19,10 @@ import cash from 'cash-dom'
 
   $(".RenderComponent__wrapper").each(function() {
     const child = this.childNodes[0];
-    if (!child) { return }
+    if (child.constructor.name == "Comment") {
+      // must be a blank node, bail here
+      return
+    }
     const childStyles = window.getComputedStyle(child)
     const origHeight = child.offsetHeight;
 
