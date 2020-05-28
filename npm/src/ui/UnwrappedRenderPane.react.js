@@ -11,7 +11,7 @@ var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _bem = require("js-kit/dom/bem");
+var _bem = require("@offsider/js-kit/dom/bem");
 
 var _bem2 = _interopRequireDefault(_bem);
 

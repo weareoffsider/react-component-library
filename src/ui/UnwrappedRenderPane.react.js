@@ -1,5 +1,5 @@
 import React, {Component} from "react"
-import bem from "js-kit/dom/bem"
+import bem from "@offsider/js-kit/dom/bem"
 import {browserExpandIcon} from './svg'
 
 export default class UnwrappedRenderPane extends Component {

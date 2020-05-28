@@ -101,7 +101,7 @@
     "imports-loader": "0.6.5",
     "isotope-layout": "3.0.1",
     "isotope-packery": "2.0.0",
-    "js-kit": "0.2.0",
+    "@offsider/js-kit": "0.2.0",
     "lodash": "4.16.4",
     "marked": "0.3.6",
     "minimatch": "3.0.3",
