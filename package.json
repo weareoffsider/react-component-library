@@ -103,7 +103,7 @@
     "isotope-packery": "2.0.0",
     "@offsider/js-kit": "0.2.0",
     "lodash": "4.16.4",
-    "marked": "0.3.6",
+    "marked": "0.3.18",
     "minimatch": "3.0.3",
     "mkdirp": "0.5.1",
     "moment": "2.15.1",
